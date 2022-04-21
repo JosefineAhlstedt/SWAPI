@@ -1,24 +1,27 @@
-import './App.css';
+import Container from 'react-bootstrap/Container'
+import { Routes, Route } from 'react-router-dom'
+import Navigation from './components/Navigation'
+import 'bootstrap/dist/css/bootstrap.css'
+import './App.css'
+import HomePage from './pages/HomePage'
+import PeoplePage from './pages/PeoplePage'
+import MoviesPage from './pages/MoviesPage'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App = () => {
+
+	return (
+		<div id="App">
+			<Navigation />
+
+			<Container className="py-3">
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/people" element={<PeoplePage />} />
+					<Route path="/movies" element={<MoviesPage />} />
+				</Routes>
+			</Container>
+		</div>
+	)
 }
 
 export default App;
