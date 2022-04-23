@@ -7,6 +7,16 @@ const getPeople = async () => {
   return res.data;
 };
 
+const getPerson = async (id) => {
+  const res = await axios.get(`${BASE_URL}/people/${id}`);
+  return res.data;
+};
+
+const getMovie = async (id) => {
+  const res = await axios.get(`${BASE_URL}/films/${id}`);
+  return res.data;
+};
+
 const getMovies = async () => {
   const res = await axios.get(`${BASE_URL}/films`);
   return res.data;
@@ -15,4 +25,6 @@ const getMovies = async () => {
 export default {
   getPeople,
   getMovies,
+  getPerson,
+  getMovie,
 };

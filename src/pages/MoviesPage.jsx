@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
+import { Link } from "react-router-dom";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState("");
@@ -13,6 +14,11 @@ const MoviesPage = () => {
   const getMovies = async () => {
     const data = await GetData.getMovies();
     setMovies(data);
+  };
+
+  const getNum = (string) => {
+    let number = string.match(/\d+/)[0];
+    return number;
   };
 
   //Fire the function as soon as it's mounted
@@ -27,8 +33,8 @@ const MoviesPage = () => {
       <h1>Movies</h1>
       <Row xs={1} md={3} className="g-4">
         {movies &&
-          movies.results.map((movies) => (
-            <Col>
+          movies.results.map((movies, index) => (
+            <Col key={index}>
               <Card style={{ width: "18rem" }}>
                 <Card.Header>{movies.title}</Card.Header>
                 <Card.Body>
@@ -43,7 +49,13 @@ const MoviesPage = () => {
                   <ListGroup.Item>
                     {movies.characters.length} characters
                   </ListGroup.Item>
-                  <Button variant="primary">Read more</Button>
+                  <Button
+                    variant="primary"
+                    as={Link}
+                    to={`/movies/${getNum(movies.url)}/`}
+                  >
+                    Read more
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>

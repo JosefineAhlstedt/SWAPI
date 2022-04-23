@@ -5,14 +5,21 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
+import { Link } from "react-router-dom";
 
 const PeoplePage = () => {
   const [people, setPeople] = useState("");
+  const [page, setPage] = useState(0);
 
   //Fetch people from api
   const getPeople = async () => {
     const data = await GetData.getPeople();
     setPeople(data);
+  };
+
+  const getNum = (string) => {
+    let number = string.match(/\d+/)[0];
+    return number;
   };
 
   //Fire the function as soon as it's mounted
@@ -27,8 +34,8 @@ const PeoplePage = () => {
       <h1>People</h1>
       <Row xs={1} md={3} className="g-4">
         {people &&
-          people.results.map((person) => (
-            <Col>
+          people.results.map((person, index) => (
+            <Col key={index}>
               <Card style={{ width: "18rem" }}>
                 <Card.Header>{person.name}</Card.Header>
                 <Card.Body>
@@ -44,12 +51,38 @@ const PeoplePage = () => {
                     <b>In </b>
                     {person.films.length} films
                   </ListGroup.Item>
-                  <Button variant="primary">Read more</Button>
+                  <Button
+                    variant="primary"
+                    as={Link}
+                    to={`/people/${getNum(person.url)}/`}
+                  >
+                    Read more
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>
           ))}
       </Row>
+
+      <div className="d-flex justify-content-between align-items-center mt-4">
+        <div className="prev">
+          <Button
+            variant="dark"
+            onClick={() => setPage((prevValue) => prevValue - 1)}
+          >
+            Previous Page
+          </Button>
+        </div>
+        <div className="page">{page}</div>
+        <div className="next">
+          <Button
+            variant="dark"
+            onClick={() => setPage((prevValue) => prevValue + 1)}
+          >
+            Next Page
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };
