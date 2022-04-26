@@ -3,7 +3,12 @@ import axios from "axios";
 const BASE_URL = "https://swapi.dev/api";
 
 const getPeople = async () => {
-  const res = await axios.get(`${BASE_URL}/people`);
+  const res = await axios.get(`${BASE_URL}/people/`);
+  return res.data;
+};
+
+const getNextPeople = async (url) => {
+  const res = await axios.get(`${url}`);
   return res.data;
 };
 
@@ -27,4 +32,5 @@ export default {
   getMovies,
   getPerson,
   getMovie,
+  getNextPeople,
 };

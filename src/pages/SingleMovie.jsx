@@ -4,10 +4,12 @@ import GetData from "../services/GetData";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 const SingleMovie = () => {
   const { id } = useParams();
   const [movie, setMovie] = useState("");
+  const navigate = useNavigate();
 
   //Get the movie
   const getMovie = async (id) => {
@@ -63,6 +65,9 @@ const SingleMovie = () => {
           </ListGroup.Item>
         </Card.Body>
       </Card>
+      <Button variant="secondary" onClick={() => navigate(-1)}>
+        Go back
+      </Button>
     </div>
   );
 };

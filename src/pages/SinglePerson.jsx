@@ -4,10 +4,12 @@ import GetData from "../services/GetData";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import { useNavigate } from "react-router-dom";
 
 const SinglePerson = () => {
   const { id } = useParams();
   const [person, setPerson] = useState("");
+  const navigate = useNavigate();
 
   //Get the person
   const getPerson = async (id) => {
@@ -71,6 +73,9 @@ const SinglePerson = () => {
           </ListGroup.Item>
         </Card.Body>
       </Card>
+      <Button variant="secondary" onClick={() => navigate(-1)}>
+        Go back
+      </Button>
     </div>
   );
 };

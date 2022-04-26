@@ -10,10 +10,16 @@ import { Link } from "react-router-dom";
 const PeoplePage = () => {
   const [people, setPeople] = useState("");
   const [page, setPage] = useState(0);
+  const [buttonValue, setButtonValue] = useState("");
 
   //Fetch people from api
   const getPeople = async () => {
     const data = await GetData.getPeople();
+    setPeople(data);
+  };
+
+  const getNextPeople = async (endpoint) => {
+    const data = await GetData.getNextPeople(endpoint);
     setPeople(data);
   };
 
@@ -26,6 +32,18 @@ const PeoplePage = () => {
   useEffect(() => {
     getPeople();
   }, []);
+
+  useEffect(() => {
+    if (!people) {
+      return;
+    }
+    if (buttonValue == "next") {
+      getNextPeople(people.next);
+    } else if (buttonValue == "prev") {
+      getNextPeople(people.previous);
+    }
+    setButtonValue("");
+  }, [page]);
 
   console.log(people);
 
@@ -67,8 +85,12 @@ const PeoplePage = () => {
       <div className="d-flex justify-content-between align-items-center mt-4">
         <div className="prev">
           <Button
+            disabled={page === 0}
             variant="dark"
-            onClick={() => setPage((prevValue) => prevValue - 1)}
+            onClick={() => {
+              setPage((prevValue) => prevValue - 1);
+              setButtonValue("prev");
+            }}
           >
             Previous Page
           </Button>
@@ -76,8 +98,12 @@ const PeoplePage = () => {
         <div className="page">{page}</div>
         <div className="next">
           <Button
+            disabled={people.count / 10 - 1 <= page}
             variant="dark"
-            onClick={() => setPage((prevValue) => prevValue + 1)}
+            onClick={() => {
+              setPage((prevValue) => prevValue + 1);
+              setButtonValue("next");
+            }}
           >
             Next Page
           </Button>
