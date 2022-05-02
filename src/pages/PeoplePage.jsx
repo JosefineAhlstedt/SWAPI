@@ -35,7 +35,7 @@ const PeoplePage = () => {
   //Fire the function as soon as it's mounted
   useEffect(() => {
     getPeople();
-  }, []);
+  }, [page]);
 
   //When the page changes check what button was clicked
   //Get next or previous page

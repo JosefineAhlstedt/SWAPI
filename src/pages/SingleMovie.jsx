@@ -11,13 +11,12 @@ const SingleMovie = () => {
   const [movie, setMovie] = useState("");
   const navigate = useNavigate();
 
-  //Get the movie
-  const getMovie = async (id) => {
-    const data = await GetData.getMovie(id);
-    setMovie(data);
-  };
-
   useEffect(() => {
+    //Get the movie
+    const getMovie = async (id) => {
+      const data = await GetData.getMovie(id);
+      setMovie(data);
+    };
     getMovie(id);
   }, []);
 

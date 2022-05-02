@@ -11,13 +11,12 @@ const SinglePerson = () => {
   const [person, setPerson] = useState("");
   const navigate = useNavigate();
 
-  //Get the person
-  const getPerson = async (id) => {
-    const data = await GetData.getPerson(id);
-    setPerson(data);
-  };
-
   useEffect(() => {
+    //Get the person
+    const getPerson = async (id) => {
+      const data = await GetData.getPerson(id);
+      setPerson(data);
+    };
     getPerson(id);
   }, []);
 
