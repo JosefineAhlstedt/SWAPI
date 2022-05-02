@@ -21,6 +21,12 @@ const SinglePerson = () => {
     getPerson(id);
   }, []);
 
+  //Function for getting the number in a string
+  const getNum = (string) => {
+    let number = string.match(/\d+/)[0];
+    return number;
+  };
+
   console.log(person);
 
   return (
@@ -67,7 +73,7 @@ const SinglePerson = () => {
             {person &&
               person.films.map((movie, index) => (
                 <ListGroup.Item action as={Link} to={`/movies/${index + 1}`}>
-                  Movie {index + 1}
+                  Movie {getNum(movie)}
                 </ListGroup.Item>
               ))}
           </ListGroup.Item>

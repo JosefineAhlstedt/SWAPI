@@ -21,8 +21,6 @@ const SingleMovie = () => {
     getMovie(id);
   }, []);
 
-  console.log(movie);
-
   return (
     <div className="movie-profile">
       <Card>

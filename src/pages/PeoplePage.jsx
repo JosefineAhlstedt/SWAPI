@@ -26,6 +26,7 @@ const PeoplePage = () => {
     setPeople(data);
   };
 
+  //Function for getting the number in url
   const getNum = (string) => {
     let number = string.match(/\d+/)[0];
     return number;
@@ -36,6 +37,8 @@ const PeoplePage = () => {
     getPeople();
   }, []);
 
+  //When the page changes check what button was clicked
+  //Get next or previous page
   useEffect(() => {
     if (!people) {
       return;
@@ -48,8 +51,7 @@ const PeoplePage = () => {
     setButtonValue("");
   }, [page]);
 
-  console.log(people);
-
+  //Generate a card for each person
   return (
     <div className="People-list">
       <h1>People</h1>
