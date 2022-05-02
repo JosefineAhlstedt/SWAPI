@@ -11,14 +11,15 @@ const SingleMovie = () => {
   const [movie, setMovie] = useState("");
   const navigate = useNavigate();
 
+  //Get the movie
+  const getMovie = async (id) => {
+    const data = await GetData.getMovie(id);
+    setMovie(data);
+  };
+
   useEffect(() => {
-    //Get the movie
-    const getMovie = async (id) => {
-      const data = await GetData.getMovie(id);
-      setMovie(data);
-    };
     getMovie(id);
-  }, []);
+  }, [id]);
 
   return (
     <div className="movie-profile">
@@ -55,7 +56,12 @@ const SingleMovie = () => {
             </div>
             {movie &&
               movie.characters.map((movie, index) => (
-                <ListGroup.Item action as={Link} to={`/people/${index + 1}`}>
+                <ListGroup.Item
+                  action
+                  as={Link}
+                  to={`/people/${index + 1}`}
+                  key={index}
+                >
                   Character {index + 1}
                 </ListGroup.Item>
               ))}

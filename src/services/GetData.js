@@ -27,10 +27,12 @@ const getMovies = async () => {
   return res.data;
 };
 
-export default {
+const functions = {
   getPeople,
   getMovies,
   getPerson,
   getMovie,
   getNextPeople,
 };
+
+export default functions;

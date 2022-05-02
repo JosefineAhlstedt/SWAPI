@@ -29,7 +29,6 @@ const MoviesPage = () => {
     getMovies();
   }, []);
 
-  //Generate a card for each movie
   return (
     <div className="movies-list">
       <h1>Movies</h1>

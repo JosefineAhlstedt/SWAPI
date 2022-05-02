@@ -11,14 +11,15 @@ const SinglePerson = () => {
   const [person, setPerson] = useState("");
   const navigate = useNavigate();
 
+  //Get the person
+  const getPerson = async (id) => {
+    const data = await GetData.getPerson(id);
+    setPerson(data);
+  };
+
   useEffect(() => {
-    //Get the person
-    const getPerson = async (id) => {
-      const data = await GetData.getPerson(id);
-      setPerson(data);
-    };
     getPerson(id);
-  }, []);
+  }, [id]);
 
   //Function for getting the number in a string
   const getNum = (string) => {
@@ -71,7 +72,12 @@ const SinglePerson = () => {
             </div>
             {person &&
               person.films.map((movie, index) => (
-                <ListGroup.Item action as={Link} to={`/movies/${index + 1}`}>
+                <ListGroup.Item
+                  key={index}
+                  action
+                  as={Link}
+                  to={`/movies/${index + 1}`}
+                >
                   Movie {getNum(movie)}
                 </ListGroup.Item>
               ))}
