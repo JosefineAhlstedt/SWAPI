@@ -9,11 +9,14 @@ import { Link } from "react-router-dom";
 
 const MoviesPage = () => {
   const [movies, setMovies] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
   //Fetch movies from api
   const getMovies = async () => {
+    setIsPending(true);
     const data = await GetData.getMovies();
     setMovies(data);
+    setIsPending(false);
   };
 
   const getNum = (string) => {
@@ -31,6 +34,7 @@ const MoviesPage = () => {
   return (
     <div className="movies-list">
       <h1>Movies</h1>
+      {isPending && <div className="spinner"></div>}
       <Row xs={1} md={3} className="g-4">
         {movies &&
           movies.results.map((movies, index) => (

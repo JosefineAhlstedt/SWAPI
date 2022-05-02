@@ -11,10 +11,13 @@ const PeoplePage = () => {
   const [people, setPeople] = useState("");
   const [page, setPage] = useState(0);
   const [buttonValue, setButtonValue] = useState("");
+  const [isPending, setIsPending] = useState(false);
 
   //Fetch people from api
   const getPeople = async () => {
+    setIsPending(true);
     const data = await GetData.getPeople();
+    setIsPending(false);
     setPeople(data);
   };
 
@@ -37,9 +40,9 @@ const PeoplePage = () => {
     if (!people) {
       return;
     }
-    if (buttonValue == "next") {
+    if (buttonValue === "next") {
       getNextPeople(people.next);
-    } else if (buttonValue == "prev") {
+    } else if (buttonValue === "prev") {
       getNextPeople(people.previous);
     }
     setButtonValue("");
@@ -50,6 +53,7 @@ const PeoplePage = () => {
   return (
     <div className="People-list">
       <h1>People</h1>
+      {isPending && <div className="spinner"></div>}
       <Row xs={1} md={3} className="g-4">
         {people &&
           people.results.map((person, index) => (
@@ -57,18 +61,20 @@ const PeoplePage = () => {
               <Card style={{ width: "18rem" }}>
                 <Card.Header>{person.name}</Card.Header>
                 <Card.Body>
-                  <ListGroup.Item>
-                    <b>Gender: </b>
-                    {person.gender}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <b>Born: </b>
-                    {person.birth_year}
-                  </ListGroup.Item>
-                  <ListGroup.Item>
-                    <b>In </b>
-                    {person.films.length} films
-                  </ListGroup.Item>
+                  <ListGroup variant="flush">
+                    <ListGroup.Item>
+                      <b>Gender: </b>
+                      {person.gender}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <b>Born: </b>
+                      {person.birth_year}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      <b>In </b>
+                      {person.films.length} films
+                    </ListGroup.Item>
+                  </ListGroup>
                   <Button
                     variant="primary"
                     as={Link}
